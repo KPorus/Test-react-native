@@ -11,6 +11,7 @@ import {
   Button,
   Alert,
   TextInput,
+  View,
 } from "react-native";
 import Home from "./component/Home";
 
@@ -52,12 +53,12 @@ export default function App() {
           color: "#fff",
         }}
         onChange={handSubmit}
-        />
-      <Button title='Confrim' onPress={() => setconfirm(!confirm)}></Button>
-      {
-        confirm &&
-        <Text>{input}</Text>
-      }
+      />
+      {confirm && <Text>{input}</Text>}
+      <View style={{ flex: 1, flexDirection: "row", height:20, marginBottom:30, }}>
+        <Button title='Confrim' onPress={() => setconfirm(true)} ></Button>
+        <Button title='Clear' onPress={() => setconfirm(false)}></Button>
+      </View>
     </SafeAreaView>
   );
 }
