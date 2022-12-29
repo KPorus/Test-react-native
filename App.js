@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
@@ -8,18 +9,26 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   Button,
-  Alert
+  Alert,
+  TextInput,
 } from "react-native";
 import Home from "./component/Home";
 
 export default function App() {
   const presss = () => console.log("img tapp.");
-  const button = () => Alert.alert("Enter your name: ","What's your name?",[
-    {text:"yes", onPress:()=>console.log(true)},
-    {text:"No", onPress:()=>console.log(false)}
-  ])
+  const button = () =>
+    Alert.alert("Enter your name: ", "What's your name?", [
+      { text: "yes", onPress: () => console.log(true) },
+      { text: "No", onPress: () => console.log(false) },
+    ]);
   // work on ios---
   // const button2 = ()=> Alert.prompt("Name","Enter your name: ", (text)=>console.log(text))
+  const [confirm, setconfirm] = useState(false);
+  const [input, setinput] = useState("");
+  const handSubmit = (e) => {
+    setinput(e.nativeEvent.text);
+    console.log(e.nativeEvent.text);
+  };
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.head}>Fardin app take 2</Text>
@@ -33,11 +42,22 @@ export default function App() {
           }}
           style={styles.img}></Image>
       </TouchableHighlight>
-      <Button
-        title='Click me'
-        onPress={button}
-        color="orange">
-        </Button>
+      <Button title='Click me' onPress={button} color='orange'></Button>
+      <TextInput
+        placeholder='What is your name....'
+        style={{
+          borderColor: "red",
+          padding: 4,
+          borderWidth: 1,
+          color: "#fff",
+        }}
+        onChange={handSubmit}
+        />
+      <Button title='Confrim' onPress={() => setconfirm(!confirm)}></Button>
+      {
+        confirm &&
+        <Text>{input}</Text>
+      }
     </SafeAreaView>
   );
 }
